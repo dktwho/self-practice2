@@ -9,6 +9,7 @@ export type TodoListsType = {
     title: string
     filter: FilterValuesType
 }
+
 function App() {
 
 
@@ -40,7 +41,8 @@ function App() {
         {id: v1(), title: "Rest API", isDone: false},
         {id: v1(), title: "GraphQL", isDone: false},
     ]);
-    let [filter, setFilter] = useState<FilterValuesType>("all");
+
+    // let [filter, setFilter] = useState<FilterValuesType>("all");
 
 
     function removeTask(id: string) {
@@ -64,31 +66,33 @@ function App() {
     }
 
 
-    let tasksForTodolist = tasks;
-
-    // if (filter === "active") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === false);
-    // }
-    // if (filter === "completed") {
-    //     tasksForTodolist = tasks.filter(t => t.isDone === true);
-    // }
-
-    function changeFilter(value: FilterValuesType) {
-        setFilter(value);
+    function changeFilter(todoListId: string, value: FilterValuesType) {
+        // setFilter(value);
+        setTodolists(todolists.map(tl => tl.id === todoListId ? {...tl, filter: value } : tl))
     }
 
 
     return (
         <div className="App">
             {todolists.map(tl => {
+                let tasksForTodolist = tasks;
+                if (tl.filter === "active") {
+                    tasksForTodolist = tasks.filter(t => t.isDone === false);
+                }
+                if (tl.filter === "completed") {
+                    tasksForTodolist = tasks.filter(t => t.isDone === true);
+                }
+
                 return (
-                    <Todolist title={tl.title}
+                    <Todolist key={tl.id}
+                              todoListId={tl.id}
+                              title={tl.title}
                               tasks={tasksForTodolist}
                               removeTask={removeTask}
                               changeFilter={changeFilter}
                               addTask={addTask}
                               changeTaskStatus={changeStatus}
-                              filter={filter}
+                              filter={tl.filter}
                     />
                 )
             })}
