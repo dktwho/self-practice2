@@ -61,23 +61,19 @@ function App() {
     function removeTask(todoListId: string, id: string) {
         // setTasks({...tasks, [todoListId]: tasks[todoListId].filter(task => task.id !== id)})
     }
-
     function addTask(todoListId: string, title: string) {
         // let task = {id: v1(), title: title, isDone: false};
         // setTasks({...tasks, [todoListId]: [task, ...tasks[todoListId]]})
     }
-
     function changeStatus(todoListId: string, taskId: string, isDone: boolean) {
         // setTasks({
         //     ...tasks,
         //     [todoListId]: tasks[todoListId].map(task => task.id === taskId ? {...task, isDone: isDone} : task)
         // })
     }
-
     function changeFilter(todoListId: string, value: FilterValuesType) {
         setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: value} : tl))
     }
-
     function removeTodoList(todoListId: string) {
         setTodoLists(todoLists.filter(tl => tl.id !== todoListId))
         delete tasks[todoListId]
@@ -86,12 +82,12 @@ function App() {
     return (
         <div className="App">
             {todoLists.map(tl => {
-                let tasksForTodolist = tasks[tl.id];
-                if (tl.filter === "active") {
-                    tasksForTodolist = tasks[tl.id].filter(t => t.isDone === false);
+                let tasksForTodolist = tasks[tl.id].data;
+                if (tasks[tl.id].filter === "active") {
+                    tasksForTodolist = tasks[tl.id].data.filter(t => t.isDone === false);
                 }
-                if (tl.filter === "completed") {
-                    tasksForTodolist = tasks[tl.id].filter(t => t.isDone === true);
+                if (tasks[tl.id].filter === "completed") {
+                    tasksForTodolist = tasks[tl.id].data.filter(t => t.isDone === true);
                 }
 
                 return (
@@ -103,7 +99,7 @@ function App() {
                               changeFilter={changeFilter}
                               addTask={addTask}
                               changeTaskStatus={changeStatus}
-                              filter={tl.filter}
+                              filter={tasks[tl.id].filter}
                               removeTodoList={removeTodoList}
                     />
                 )
