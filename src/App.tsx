@@ -58,8 +58,9 @@ function App() {
         }
     })
 
-    function removeTask(todoListId: string, id: string) {
+    function removeTask(todoListId: string, taskId: string) {
         // setTasks({...tasks, [todoListId]: tasks[todoListId].filter(task => task.id !== id)})
+        setTasks({...tasks, [todoListId]: {...tasks[todoListId], data:tasks[todoListId].data.filter(task => task.id !== taskId) }})
     }
     function addTask(todoListId: string, title: string) {
         // let task = {id: v1(), title: title, isDone: false};
