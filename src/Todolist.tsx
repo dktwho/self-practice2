@@ -36,6 +36,10 @@ export function Todolist(props: PropsType) {
         props.updateTodolist(props.todoListId, newTitle)
     }
 
+    const updateTaskHandler = (tID: string, newTitle: string) => {
+        props.updateTask(props.todoListId, tID, newTitle)
+    }
+
 
     const onAllClickHandler = () => props.changeFilter(props.todoListId, "all");
     const onActiveClickHandler = () => props.changeFilter(props.todoListId, "active");
@@ -48,7 +52,6 @@ export function Todolist(props: PropsType) {
             <button onClick={removeTodoListHandler}>X</button>
         </h3>
 
-
         <div>
             <AddItemForm callback={addTaskHandler}/>
         </div>
@@ -60,15 +63,15 @@ export function Todolist(props: PropsType) {
                         props.changeTaskStatus(props.todoListId, t.id, e.currentTarget.checked);
                     }
 
-                    const updateTaskHandler = (newTitle: string) => {
-                        props.updateTask(props.todoListId, t.id, newTitle)
-                    }
+                    // const updateTaskHandler = (newTitle: string) => {
+                    //     props.updateTask(props.todoListId, t.id, newTitle)
+                    // }
 
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
                         <input type="checkbox"
                                onChange={onChangeHandler}
                                checked={t.isDone}/>
-                        <EditableSpan oldTitle={t.title} callback={updateTaskHandler}/>
+                        <EditableSpan oldTitle={t.title} callback={(newTitle: string) => updateTaskHandler(t.id, newTitle)}/>
                         <button onClick={onClickHandler}>x</button>
                     </li>
                 })
