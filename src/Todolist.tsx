@@ -45,6 +45,10 @@ export function Todolist(props: PropsType) {
     //     }
     // }
 
+    const addTaskHandler = (title: string) => {
+        props.addTask(props.todoListId, title)
+    }
+
     const removeTodoListHandler = () => {
         props.removeTodoList(props.todoListId)
     }
@@ -59,8 +63,9 @@ export function Todolist(props: PropsType) {
             <button onClick={removeTodoListHandler}>X</button>
         </h3>
 
+
         <div>
-            <AddItemForm addTask={props.addTask} todoListId={props.todoListId}/>
+            <AddItemForm callback={addTaskHandler} />
             {/*<input value={title}*/}
             {/*       onChange={onChangeHandler}*/}
             {/*       onKeyPress={onKeyPressHandler}*/}
