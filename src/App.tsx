@@ -79,7 +79,9 @@ function App() {
         setTasks({...tasks, [todoListId]: {...tasks[todoListId], data: tasks[todoListId].data.map(task => task.id === taskId ? {...task, isDone: isDone} : task )}})
     }
     function changeFilter(todoListId: string, value: FilterValuesType) {
-        setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: value} : tl))
+        // setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, filter: value} : tl))
+        // ------------------------------------------------------------------------------------//
+        setTasks({...tasks, [todoListId]: {...tasks[todoListId], filter: value}})
     }
     function removeTodoList(todoListId: string) {
         setTodoLists(todoLists.filter(tl => tl.id !== todoListId))
