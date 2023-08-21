@@ -117,7 +117,10 @@ function App() {
                 data: tasks[todoListId].data.map(task => task.id === taskId ? {...task, title: newTitle} : task)
             }
         })
+    }
 
+    function updateTodolist(todoListId: string, newTitle: string) {
+        setTodoLists(todoLists.map(tl => tl.id === todoListId ? {...tl, title: newTitle} : tl))
     }
 
     return (
@@ -144,6 +147,7 @@ function App() {
                               filter={tasks[tl.id].filter}
                               removeTodoList={removeTodoList}
                               updateTask={updateTask}
+                              updateTodolist={updateTodolist}
                     />
                 )
             })}
